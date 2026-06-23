@@ -1,31 +1,113 @@
-
 <!DOCTYPE html>
-<html lang="">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Blog</title>
-        <style>
-            header{
-                background-color: red;
-                color: white;
-            }
-            main{
-                background-color: white;
-                color: red;
-            }
-        </style>
-    </head>
-    <body>
-        <header>
-            <h1>Meu Blog de Jujutsu</h1>
-            <p>Vou compartilhar meu conhecimento de Jujutsu Shenanigans</p>
-        </header>
-        <Main>
-            <h2>Meu primeiro Post!</h2>
-            <p>Por: Luis Felipe de Carvalho</p>
-            <p>Boas-Vindas ao meu novo Blog! aqui vou compartilhar
-                dicas de Jujutsu Shenanigans e curiosidades.</p>
-        </Main>
-    </body>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expansão de Domínio - Blog de Jujutsu</title>
+    <style>
+        /* Configurações Gerais */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121214;
+            color: #e1e1e6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Cabeçalho */
+        header {
+            background: linear-gradient(135deg, #4a0e4e, #1a052e);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 4px solid #da1b2c;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            margin: 10px 0 0 0;
+            font-style: italic;
+            color: #cccccc;
+        }
+
+        /* Conteúdo Principal */
+        main {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #1f2029;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Estilo dos Posts */
+        .post {
+            border-bottom: 2px solid #292b38;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .post:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        h2 {
+            color: #da1b2c;
+            font-size: 1.8rem;
+            margin-top: 0;
+        }
+
+        .autor {
+            font-size: 0.9rem;
+            color: #8f9ba8;
+            margin-bottom: 15px;
+        }
+
+        p {
+            line-height: 1.6;
+            color: #d1d2d9;
+        }
+
+        /* Destaque para Spoilers */
+        .spoiler-tag {
+            background-color: #da1b2c;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Expansão de Domínio</h1>
+        <p>Tudo sobre o mangá, Jujutsu Shenanigans e novidades da 4ª Temporada!</p>
+    </header>
+
+    <main>
+        <article class="post">
+            <h2>Boas-Vindas ao meu novo Blog!</h2>
+            <div class="autor">Por: Luis Felipe de Carvalho</div>
+            <p>Fala, feiticeiros! Esse é o meu espaço para compartilhar teorias do mangá, curiosidades e dicas insanas de combos para o <strong>Jujutsu Shenanigans</strong>. Fiquem ligados!</p>
+        </article>
+
+        <article class="post">
+            <h2><span class="spoiler-tag">Spoiler</span> O que esperar da 4ª Temporada do Anime?</h2>
+            <div class="autor">Por: Luis Felipe de Carvalho</div>
+            <p>Com o fim do arco do Incidente de Shibuya e o Jogo do Abate se aproximando, a 4ª temporada promete adaptar lutas insanas. O foco principal será o início do plano do Kenjaku e a preparação para os confrontos mais brutais do mangá...</p>
+        </article>
+    </main>
+
+</body>
 </html>
