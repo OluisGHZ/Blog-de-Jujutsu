@@ -3,111 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expansão de Domínio - Blog de Jujutsu</title>
+    <title>Shinobi Life Blog - Luis Felipe</title>
     <style>
-        /* Configurações Gerais */
+        /* Configurações Gerais - Estilo Naruto & RGB */
         body {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121214;
-            color: #e1e1e6;
             margin: 0;
-            padding: 0;
-        }
-
-        /* Cabeçalho */
-        header {
-            background: linear-gradient(135deg, #4a0e4e, #1a052e);
-            color: #fff;
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 4px solid #da1b2c;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        header p {
-            margin: 10px 0 0 0;
-            font-style: italic;
-            color: #cccccc;
-        }
-
-        /* Conteúdo Principal */
-        main {
-            max-width: 800px;
-            margin: 30px auto;
             padding: 20px;
-            background-color: #1f2029;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
-        /* Estilo dos Posts */
-        .post {
-            border-bottom: 2px solid #292b38;
+        /* Container Principal com efeito RGB na borda */
+        .blog-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #262626;
+            border: 4px solid transparent;
+            border-image: linear-gradient(to right, #ff4500, #ffaa00, #00ffcc, #ff4500) 1;
+            animation: rgbBorder 6s linear infinite;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        @keyframes rgbBorder {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 3px solid #ff4500;
             padding-bottom: 20px;
             margin-bottom: 20px;
         }
 
-        .post:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
+        header h1 {
+            color: #ffaa00;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px #ff4500;
+            margin: 0;
         }
 
-        h2 {
-            color: #da1b2c;
-            font-size: 1.8rem;
+        /* Botões das Abas */
+        .tab-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .tab-button {
+            background-color: #333;
+            color: #fff;
+            border: 2px solid #ff4500;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+
+        .tab-button:hover, .tab-button.active {
+            background-color: #ff4500;
+            color: #000;
+            box-shadow: 0 0 10px #ff4500;
+        }
+
+        /* Conteúdo das Abas */
+        .tab-content {
+            display: none;
+            background: #1f1f1f;
+            padding: 20px;
+            border-left: 5px solid #ffaa00;
+            border-radius: 4px;
+            line-height: 1.6;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        h3 {
+            color: #ffaa00;
             margin-top: 0;
         }
 
-        .autor {
-            font-size: 0.9rem;
-            color: #8f9ba8;
-            margin-bottom: 15px;
+        ul {
+            padding-left: 20px;
         }
 
-        p {
-            line-height: 1.6;
-            color: #d1d2d9;
+        li {
+            margin-bottom: 8px;
         }
 
-        /* Destaque para Spoilers */
-        .spoiler-tag {
-            background-color: #da1b2c;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
+        strong {
+            color: #00ffcc;
         }
     </style>
 </head>
 <body>
 
+<div class="blog-container">
     <header>
-        <h1>Expansão de Domínio</h1>
-        <p>Tudo sobre o mangá, Jujutsu Shenanigans e novidades da 4ª Temporada!</p>
+        <h1>Shinobi Life Wiki & Blog</h1>
+        <p>Domine o seu caminho ninja</p>
     </header>
 
-    <main>
-        <article class="post">
-            <h2>Boas-Vindas ao meu novo Blog!</h2>
-            <div class="autor">Por: Luis Felipe de Carvalho</div>
-            <p>Fala, feiticeiros! Esse é o meu espaço para compartilhar teorias do mangá, curiosidades e dicas insanas de combos para o <strong>Jujutsu Shenanigans</strong>. Fiquem ligados!</p>
-        </article>
+    <div class="tab-menu">
+        <button class="tab-button active" onclick="openTab(event, 'home')">Início</button>
+        <button class="tab-button" onclick="openTab(event, 'progressao')">Progressão</button>
+        <button class="tab-button" onclick="openTab(event, 'meta')">Bloodlines & Elementos</button>
+        <button class="tab-button" onclick="openTab(event, 'sub')">Sub-Transformações</button>
+        <button class="tab-button" onclick="openTab(event, 'rank')">Como upar Rank</button>
+    </div>
 
-        <article class="post">
-            <h2><span class="spoiler-tag">Spoiler</span> O que esperar da 4ª Temporada do Anime?</h2>
-            <div class="autor">Por: Luis Felipe de Carvalho</div>
-            <p>Com o fim do arco do Incidente de Shibuya e o Jogo do Abate se aproximando, a 4ª temporada promete adaptar lutas insanas. O foco principal será o início do plano do Kenjaku e a preparação para os confrontos mais brutais do mangá...</p>
-        </article>
-    </main>
+    <div id="home" class="tab-content active">
+        <h3>Bem-vindo ao Blog!</h3>
+        <p>Fala galera! Meu nome é <strong>Luis Felipe de carvalho</strong> e eu sou o criador deste espaço.</p>
+        <p>Criei este blog com dois grandes intuitos: o primeiro foi colocar a mão na massa para aprender programação e desenvolvimento web na prática; o segundo foi ajudar a comunidade de Shinobi Life, passando adiante todo o meu conhecimento acumulado sobre o jogo para que vocês evoluam muito mais rápido!</p>
+    </div>
+
+    <div id="progressao" class="tab-content">
+        <h3>A Progressão Shinobi</h3>
+        <p>🗺️ Rota de Missões e o Grind do Nível 1 ao 1000
+Para quem está começando do nível 1 após um Rank Up, o segredo é não perder tempo com missões de NPCs comuns (os scrolls verdes) por muito tempo.
+
+Nível 1 ao 50 (O Começo): Vá para a vila inicial (Ember) e bata nos logs de treino (os troncos de madeira) usando cliques normais e artes marciais para conseguir os primeiros níveis rapidamente.
+
+Nível 50 ao 400 (Missões de Chefe de Vila): Ative os scrolls verdes apenas até liberar o nível necessário para fazer as missões de Boss de Vila (Scrolls Vermelhos). Em Ember, foque em derrotar repetidamente os chefes mais simples que ficam nos arredores da vila.
+
+Nível 400 ao 1000 (O Salto dos Grandes Bosses): Assim que seus atributos permitirem, mude para mapas que possuem rotas de chefes mais próximas, como Shindai Valley ou Obelisk. O segredo aqui é o "Boss Hop" (ficar trocando de servidor público ou usar servidores privados) para derrotar os chefes em sequência assim que eles spawnarem.
+
+⚔️ Ordem de Bosses, Localização e Drops de XP
+Para subir de nível o mais rápido possível, você deve focar nos chefes de mapas específicos que dão uma quantidade massiva de experiência. O boss que mais concede XP no jogo atualmente é o Deva Ren (na vila de Dawn Hideout) e os bosses de evento de dungeon, mas para o farm diário e rápido de níveis, a rota de Shindai Valley e Jeunesse é a mais eficiente.
+
+Rota Eficiente de Bosses para XP e Drops:
+Shindai Akuma (Shindai Valley): Encontrado na área aberta atrás das montanhas principais. Ele dropa o companheiro Shindai Akuma e o estilo de luta de clones. É excelente para farmar no mid-game.
+
+Forged Akuma (Obelisk): Fica localizado na região desértica do mapa. É um boss relativamente fácil de solar com as técnicas certas e dropa armas excelentes e modos de linhagem.
+
+Deva Ren / Deva Gold (Dawn Hideout): O ápice do farm de XP. Eles ficam no centro do mapa de Dawn. Derrotá-los concede milhões de pontos de experiência de uma só vez, sendo o melhor método para ir do nível 800 ao 1000 em minutos. Dropa o cobiçado Deva Rinnegan.
+
+🐉 As Bijus (Tailed Beasts): Gerações, Mapas e Locais
+As Bijus são os bosses mais importantes para quem quer um bônus gigante de status através das transformações. Elas são divididas por gerações (Gen 1, Gen 2 e Gen 3). Atualmente, as de Gen 2 e Gen 3 são as melhores devido ao poder de dano em área e escalonamento de atributos.
+
+As Bijus surgem como Bosses do Mundo em locais específicos e dropam seus respectivos pergaminhos de transformação (com uma chance de drop geralmente entre 10% a 20%):
+
+Korashi (9 Caudas - Gen 2): Encontrada no mapa de Ember, no grande lago atrás da vila. É uma das melhores para farmar outros bosses devido ao seu poderoso rugido em área e ataques contínuos de feixes de Chi.
+
+Su Tyn (8 Caudas - Gen 2): Localizada em Storm, na área montanhosa e tempestuosa. Ótima para controle de grupo.
+
+Gai Tyn (5 Caudas - Gen 3): Encontrada no mapa de Great Narumaki. As versões de Gen 3 funcionam de forma diferente: você luta contra o boss humano primeiro e depois contra a forma de besta. Elas dropam as melhores armaduras espirituais do jogo.
+
+Maru (3 Caudas - Gen 3): Localizada em Forest of Embers. Muito visada pelo seu drop que concede uma mobilidade e defesa absurdas durante o PVP e o PVE.
+
+🔮 A Build Suprema para Derreter Bosses
+Para solar esses chefes gigantes e subir de nível na velocidade da luz, sua build precisa ser focada em dano por tique (DoT) e múltiplos acertos simultâneos, já que o hitbox dos bosses grandes encosta em várias habilidades ao mesmo tempo.
+
+Bloodlines (Linhagens): * Shado: A escolha número um para PVE. A habilidade C-Spec e o modo dela criam estacas de sombra no chão. Como o hitbox dos bosses e das Bijus é gigante, eles recebem o dano de todas as estacas de uma vez, drenando a vida do boss em segundos.
+
+Apollo Sand: A terceira habilidade lança espinhos de areia de ferro que causam dano contínuo massivo se o boss estiver parado. Combinar Shado + Apollo Sand faz qualquer chefe sumir da tela.
+
+Elementos:
+
+Earth (Terra): Essencial pelas paredes que prendem os chefes e dão dano por esmagamento.
+
+Chaos ou Order: Elementos premium que possuem raios e feixes de energia contínuos de longo alcance, perfeitos para manter a distância enquanto o boss queima.
+
+Transformação: Use o modo da Biju Gen 2 (como a de 9 Caudas) no estágio 3 ou 4, ou a forma final de Linhagens de Boss para garantir regeneração constante de Chi e Health.
+
+📊 Distribuição Perfeita de Status (Stats)
+A forma como você distribui seus pontos muda completamente o seu desempenho. Aqui está como deixar os seus pontos dependendo do seu objetivo atual no jogo:
+
+Build Focada em Farm (PVE/Bosses)
+No farm, você precisa aguentar o dano dos bosses e ter Chi infinito para spammar seus jutsus repetidamente.
+
+Chi: Maximize o quanto antes (6000+ pontos). Você usará muitas habilidades de Linhagem seguidas.
+
+Ninjutsu: 5000+ pontos. O dano das suas principais habilidades de área (como a areia de ferro e as sombras) escala diretamente aqui.
+
+Health (Vida): 4000+ pontos. O suficiente para não morrer com um combo surpresa das Bijus.
+
+Taijutsu: Deixe o restante dos pontos aqui, usando apenas para mobilidade ou completar combos simples de cliques.
+
+Build Focada em Combate (PVP)
+No PVP, o foco muda para sobrevivência extrema e dano bruto para finalizar o oponente antes que ele use habilidades de fuga.
+
+Health (Vida): Maximize primeiro (6000+ pontos). No PVP, quem tem mais vida sobrevive aos combos de one-shot.
+
+Chi: 5000+ pontos. O suficiente para manter seus modos ativados e usar substituições (esquivas) sem ficar sem estamina.
+
+Ninjutsu / Taijutsu: Divida de forma equilibrada (4500+ em cada) dependendo do seu estilo de luta. Se você usa muitas armas e sub-jutsus físicos, foque em Taijutsu; se usa poderes elementares e ilusões, foque em Ninjutsu. em distribuir seus pontos equilibradamente no começo para aguentar o dano dos NPCs enquanto upa suas habilidades.</p>
+    </div>
+
+    <div id="meta" class="tab-content">
+        <h3>Melhores Poderes para PVP e Farm</h3>
+        <p><strong>Melhores Bloodlines (PVP):</strong> ⚔️ O Melhor para PVP vs. O Melhor para Farm
+O Rei do PVP: Tyn Akuma e Minakaze
+Por que são os melhores? Tyn Akuma e Minakaze dominam o topo do PVP. Eles oferecem uma passiva de escalonamento brutal, alta mobilidade com teletransportes e congelamento de tempo, o que permite iniciar combos sem dar chances de reação ou substituição para o oponente.
+
+Como obter: Através do sistema de giros (Spins) no menu principal.
+
+Chances de Drop: Extremamente baixas. A chance base de puxar uma linhagem S-tier como essas gira em torno de 1/250 a 1/300 por giro. </p>
+        <p><strong>Melhores Bloodlines (Farm/Bosses):</strong> O Rei do Farm: Shado e Apollo Sand
+Por que são os melhores? Como vimos na rota de nível, a combinação do C-Spec da Shado (as estacas pretas) com a terceira habilidade da Apollo Sand (os espinhos de ferro) derrete a vida de qualquer Boss gigante em questão de segundos. Eles cobrem uma área enorme e aplicam dano contínuo a cada segundo (DoT), multiplicando o dano com base no tamanho do hitbox do Boss.
+
+Como obter: Sistema de giros comuns (Spins).
+
+Chances de Drop: Sendo linhagens de raridade média/alta, as chances variam entre 1/60 e 1/90, tornando-as relativamente fáceis de conseguir para quem guarda spins de códigos. </p>
+        <p><strong>Melhores Elementos:</strong> 🔄 Os Mais Versáteis: O Equilíbrio PerfeitoSe você não quer ficar trocando de build toda hora e busca algo excelente tanto para amassar players no PVP quanto para solar Bosses, você precisa de linhagens versáteis:O Campeão da Versatilidade: Shindai Akuma (ou Shindai Rengoku)O grande segredo aqui são os seus clones. No Farm, os clones distraem os Bosses e aplicam uma quantidade massiva de dano por segundo utilizando ataques físicos (M2). No PVP, eles confundem o oponente, absorvem jutsus inimigos e servem de escudo, além de possuírem um contra-ataque (Counter) impecável.Elemento Mais Versátil: Chaos / OrderAmbos os elementos premium possuem feixes de laser contínuos que servem para prender oponentes em combos no PVP e, ao mesmo tempo, causam um dano contínuo fantástico em Bosses à distância segura. A chance de rotação deles nos spins é de 1/100.💥 O Maior Dano Brutal e os Mais Raros do JogoO Maior Dano do Jogo: Atualmente, a linhagem Indra Akuma e as variantes de Kamaki Akuma possuem os maiores multiplicadores de dano bruto em um único combo se todas as habilidades conectarem perfeitamente.Os Mais Raros e Difíceis (Spins): As linhagens limitadas de eventos e linhagens como Aizden exigem uma quantidade absurda de paciência. Aizden, por exemplo, requer que você colete máscaras específicas de Bosses ou junte uma quantidade colossal de RELL Coins (cerca de 150.000 a 200.000) na loja do jogo para comprar diretamente quando estiver disponível.🗺️ Bloodlines e Elementos de Drop de Boss (Sem usar Spins)Nem tudo no jogo depende de sorte nos giros! Algumas das melhores habilidades e sub-habilidades precisam ser tomadas à força derrotando grandes chefes nos mapas.⚠️ Requisitos para coletar: Para pegar esses itens, você precisa estar no servidor quando o Boss for derrotado e correr para clicar no pergaminho (Scroll) que cai no chão antes que ele desapareça. A chance de drop varia entre 10% e 15%.Aqui está a lista dos principais alvos para caça:Boss / ChefeMapa de SpawnLocalização ExataO que ele dropa?Shindai AkumaShindai ValleyNa clareira atrás das grandes montanhas de pedra.Companheiro Shindai e jutsus de clones específicos.Deva RenDawn HideoutExatamente no centro do mapa, na arena principal de Dawn.Deva Rinnegan (Linhagem visual potente para controle de mapa).Forged AkumaObeliskNa área desértica aberta, afastada da vila principal.Modos Forged e armas de longo alcance.Gen 3 Beast BossesGreat Narumaki / Forest of EmbersNas grandes arenas de selamento espalhadas pelas bordas do mapa.Armaduras Espirituais e as formas de Biju da Geração 3. </p>
+    </div>
+
+    <div id="sub" class="tab-content">
+        <h3>Sub-Transformações (Bijus e Invocações)</h3>
+        <p>As Sub-Habilidades são cruciais para aumentar seus atributos máximos:</p>
+        <ul>
+            <li><strong>Bijus (Tailed Beasts):</strong> Nascem em horários específicos em mapas determinados. Você precisa derrotar o boss da Biju quando o scroll dropar para capturá-la.</li>
+            <li><strong>Invocações (Boss Companions/Invokes):</strong> Obtidas derrotando chefes específicos nos mapas do jogo através de drops de scrolls de pergaminho.</li>
+        </ul>
+    </div>
+
+    <div id="rank" class="tab-content">
+        <h3>Como Fazer Rank Up</h3>
+        <p>Para subir seu Rank, você deve atingir obrigatoriamente o <strong>Nível 1000</strong>. Assim que alcançar, vá até o menu principal do jogo ou digite o comando de rank up na aba de customização. Seu nível voltará ao 1, mas você ganhará mais stats base por nível e spins extras!</p>
+    </div>
+</div>
+
+<script>
+    // Função em JavaScript para alternar as abas
+    function openTab(evt, tabName) {
+        // Esconde todos os conteúdos das abas
+        var i, tabcontent, tabbuttons;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Remove a classe 'active' de todos os botões
+        tabbuttons = document.getElementsByClassName("tab-button");
+        for (i = 0; i < tabbuttons.length; i++) {
+            tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
+        }
+
+        // Mostra a aba atual e adiciona a classe 'active' ao botão clicado
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
 
 </body>
 </html>
