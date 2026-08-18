@@ -3,256 +3,725 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shinobi Life Blog - Luis Felipe</title>
+    <title>Shindo Life Central Wiki & Codex - Luis Felipe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <style>
-        /* Configurações Gerais - Estilo Naruto & RGB */
-        body {
-            background-color: #1a1a1a;
-            color: #f5f5f5;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --bg-body: #090d16;
+            --bg-surface: #111827;
+            --bg-surface-hover: #1f2937;
+            --border-color: #1f2937;
+            --border-highlight: #374151;
+            --accent-orange: #f97316;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-purple: #a855f7;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
         }
 
-        /* Container Principal com efeito RGB na borda */
-        .blog-container {
-            max-width: 900px;
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            padding: 30px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
-            background: #262626;
-            border: 4px solid transparent;
-            border-image: linear-gradient(to right, #ff4500, #ffaa00, #00ffcc, #ff4500) 1;
-            animation: rgbBorder 6s linear infinite;
-            padding: 30px;
-            border-radius: 8px;
         }
 
-        @keyframes rgbBorder {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-
+        /* Header Moderno Minimalista */
         header {
             text-align: center;
-            border-bottom: 3px solid #ff4500;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
         }
 
         header h1 {
-            color: #ffaa00;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px #ff4500;
-            margin: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
         }
 
-        /* Botões das Abas */
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Barra de Busca e Menu de Navegação */
+        .controls-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 14px 20px;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-bar input:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+        }
+
         .tab-menu {
             display: flex;
-            flex-wrap: wrap;
             gap: 10px;
-            justify-content: center;
-            margin-bottom: 25px;
+            overflow-x: auto;
+            padding-bottom: 5px;
         }
 
-        .tab-button {
-            background-color: #333;
-            color: #fff;
-            border: 2px solid #ff4500;
-            padding: 10px 20px;
+        .tab-btn {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
             cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: 0.3s;
-            border-radius: 4px;
+            white-space: nowrap;
         }
 
-        .tab-button:hover, .tab-button.active {
-            background-color: #ff4500;
-            color: #000;
-            box-shadow: 0 0 10px #ff4500;
+        .tab-btn:hover {
+            background: var(--bg-surface-hover);
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background: var(--accent-orange);
+            color: #ffffff;
+            border-color: var(--accent-orange);
         }
 
         /* Conteúdo das Abas */
         .tab-content {
             display: none;
-            background: #1f1f1f;
-            padding: 20px;
-            border-left: 5px solid #ffaa00;
-            border-radius: 4px;
-            line-height: 1.6;
         }
 
         .tab-content.active {
             display: block;
+            animation: fadeIn 0.3s ease-out;
         }
 
-        h3 {
-            color: #ffaa00;
-            margin-top: 0;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        ul {
-            padding-left: 20px;
+        /* Grid do Codex */
+        .codex-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
 
-        li {
+        .codex-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 160px;
+        }
+
+        .codex-card:hover {
+            border-color: var(--border-highlight);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-pvp { background: rgba(249, 115, 22, 0.15); color: var(--accent-orange); }
+        .badge-pve { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
+        .badge-meta { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); }
+        .badge-elem { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); }
+
+        .card-desc {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .card-footer {
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Tabelas e Painéis */
+        .info-panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .info-panel h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-surface);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-top: 15px;
+        }
+
+        .data-table th, .data-table td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table th {
+            background: #161e2e;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Caixa de Códigos RELL Coins */
+        .code-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0f172a;
+            border: 1px dashed var(--accent-cyan);
+            padding: 18px 24px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .btn-copy {
+            background: var(--accent-cyan);
+            color: #000;
+            border: none;
+            padding: 10px 18px;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-copy:hover {
+            opacity: 0.85;
+        }
+
+        /* Modal Interativo de Detalhes */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: modalFade 0.2s ease-out;
+        }
+
+        @keyframes modalFade {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-content {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-highlight);
+            border-radius: 16px;
+            max-width: 650px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-surface-hover);
+            border: none;
+            color: var(--text-secondary);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .modal-section {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .modal-section h4 {
+            color: var(--accent-orange);
             margin-bottom: 8px;
         }
 
-        strong {
-            color: #00ffcc;
+        .modal-section ul {
+            padding-left: 20px;
+            color: var(--text-secondary);
+            font-size: 0.93rem;
+            line-height: 1.6;
         }
     </style>
 </head>
 <body>
 
-<div class="blog-container">
+<div class="container">
     <header>
-        <h1>Shinobi Life Wiki & Blog</h1>
-        <p>Domine o seu caminho ninja</p>
+        <h1>Shindo Life Ultimate Wiki</h1>
+        <p>Portal Completo de Codex, Guias de Leveling, Bosses e RELL Coins — por Luis Felipe</p>
     </header>
 
-    <div class="tab-menu">
-        <button class="tab-button active" onclick="openTab(event, 'home')">Início</button>
-        <button class="tab-button" onclick="openTab(event, 'progressao')">Progressão</button>
-        <button class="tab-button" onclick="openTab(event, 'meta')">Bloodlines & Elementos</button>
-        <button class="tab-button" onclick="openTab(event, 'sub')">Sub-Transformações</button>
-        <button class="tab-button" onclick="openTab(event, 'rank')">Como upar Rank</button>
+    <div class="controls-wrapper">
+        <div class="search-bar">
+            <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="Buscar por qualquer nome, boss, elemento ou guia...">
+        </div>
+
+        <div class="tab-menu">
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-home')">Início</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-bloodlines')">Bloodlines (<span id="bloodCount">0</span>)</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-elements')">Elementos (<span id="elemCount">0</span>)</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-progression')">Progressão & Stats</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-bosses')">Bosses & Drops</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-codes')">Códigos & Spins</button>
+        </div>
     </div>
 
-    <div id="home" class="tab-content active">
-        <h3>Bem-vindo ao Blog!</h3>
-        <p>Fala galera! Meu nome é <strong>Luis Felipe de carvalho</strong> e eu sou o criador deste espaço.</p>
-        <p>Criei este blog com dois grandes intuitos: o primeiro foi colocar a mão na massa para aprender programação e desenvolvimento web na prática; o segundo foi ajudar a comunidade de Shinobi Life, passando adiante todo o meu conhecimento acumulado sobre o jogo para que vocês evoluam muito mais rápido!</p>
+    <!-- TAB 1: INÍCIO -->
+    <div id="tab-home" class="tab-content active">
+        <div class="info-panel">
+            <h3>Bem-vindo ao Shindo Life Central Codex</h3>
+            <p style="color: var(--text-secondary); line-height: 1.6;">
+                Fala galera! Meu nome é <strong>Luis Felipe de Carvalho</strong>. Criei este espaço para combinar meu aprendizado em programação web com a paixão por Shindo Life. Aqui você encontra um banco de dados dinâmico e atualizado com todas as linhagens, elementos, estratégias de farm e tabelas de drops do jogo.
+            </p>
+        </div>
+
+        <div class="codex-grid">
+            <div class="codex-card" onclick="switchTabByName('tab-progression')">
+                <div>
+                    <div class="card-header">
+                        <h3 class="card-title">Rota do Lv 1 ao 1000</h3>
+                        <span class="badge badge-pve">Guia Rápido</span>
+                    </div>
+                    <p class="card-desc">Aprenda o método Boss Hop para evoluir do nível 1 ao 1000 em minutos.</p>
+                </div>
+                <div class="card-footer">Acessar Guia de Progressão &rarr;</div>
+            </div>
+
+            <div class="codex-card" onclick="switchTabByName('tab-bloodlines')">
+                <div>
+                    <div class="card-header">
+                        <h3 class="card-title">Codex de Bloodlines</h3>
+                        <span class="badge badge-meta">Interativo</span>
+                    </div>
+                    <p class="card-desc">Mais de 80 Bloodlines mapeadas com fichas técnicas de moveset e combos.</p>
+                </div>
+                <div class="card-footer">Explorar Codex &rarr;</div>
+            </div>
+        </div>
     </div>
 
-    <div id="progressao" class="tab-content">
-        <h3>A Progressão Shinobi</h3>
-        <p>🗺️ Rota de Missões e o Grind do Nível 1 ao 1000
-Para quem está começando do nível 1 após um Rank Up, o segredo é não perder tempo com missões de NPCs comuns (os scrolls verdes) por muito tempo.
-
-Nível 1 ao 50 (O Começo): Vá para a vila inicial (Ember) e bata nos logs de treino (os troncos de madeira) usando cliques normais e artes marciais para conseguir os primeiros níveis rapidamente.
-
-Nível 50 ao 400 (Missões de Chefe de Vila): Ative os scrolls verdes apenas até liberar o nível necessário para fazer as missões de Boss de Vila (Scrolls Vermelhos). Em Ember, foque em derrotar repetidamente os chefes mais simples que ficam nos arredores da vila.
-
-Nível 400 ao 1000 (O Salto dos Grandes Bosses): Assim que seus atributos permitirem, mude para mapas que possuem rotas de chefes mais próximas, como Shindai Valley ou Obelisk. O segredo aqui é o "Boss Hop" (ficar trocando de servidor público ou usar servidores privados) para derrotar os chefes em sequência assim que eles spawnarem.
-
-⚔️ Ordem de Bosses, Localização e Drops de XP
-Para subir de nível o mais rápido possível, você deve focar nos chefes de mapas específicos que dão uma quantidade massiva de experiência. O boss que mais concede XP no jogo atualmente é o Deva Ren (na vila de Dawn Hideout) e os bosses de evento de dungeon, mas para o farm diário e rápido de níveis, a rota de Shindai Valley e Jeunesse é a mais eficiente.
-
-Rota Eficiente de Bosses para XP e Drops:
-Shindai Akuma (Shindai Valley): Encontrado na área aberta atrás das montanhas principais. Ele dropa o companheiro Shindai Akuma e o estilo de luta de clones. É excelente para farmar no mid-game.
-
-Forged Akuma (Obelisk): Fica localizado na região desértica do mapa. É um boss relativamente fácil de solar com as técnicas certas e dropa armas excelentes e modos de linhagem.
-
-Deva Ren / Deva Gold (Dawn Hideout): O ápice do farm de XP. Eles ficam no centro do mapa de Dawn. Derrotá-los concede milhões de pontos de experiência de uma só vez, sendo o melhor método para ir do nível 800 ao 1000 em minutos. Dropa o cobiçado Deva Rinnegan.
-
-🐉 As Bijus (Tailed Beasts): Gerações, Mapas e Locais
-As Bijus são os bosses mais importantes para quem quer um bônus gigante de status através das transformações. Elas são divididas por gerações (Gen 1, Gen 2 e Gen 3). Atualmente, as de Gen 2 e Gen 3 são as melhores devido ao poder de dano em área e escalonamento de atributos.
-
-As Bijus surgem como Bosses do Mundo em locais específicos e dropam seus respectivos pergaminhos de transformação (com uma chance de drop geralmente entre 10% a 20%):
-
-Korashi (9 Caudas - Gen 2): Encontrada no mapa de Ember, no grande lago atrás da vila. É uma das melhores para farmar outros bosses devido ao seu poderoso rugido em área e ataques contínuos de feixes de Chi.
-
-Su Tyn (8 Caudas - Gen 2): Localizada em Storm, na área montanhosa e tempestuosa. Ótima para controle de grupo.
-
-Gai Tyn (5 Caudas - Gen 3): Encontrada no mapa de Great Narumaki. As versões de Gen 3 funcionam de forma diferente: você luta contra o boss humano primeiro e depois contra a forma de besta. Elas dropam as melhores armaduras espirituais do jogo.
-
-Maru (3 Caudas - Gen 3): Localizada em Forest of Embers. Muito visada pelo seu drop que concede uma mobilidade e defesa absurdas durante o PVP e o PVE.
-
-🔮 A Build Suprema para Derreter Bosses
-Para solar esses chefes gigantes e subir de nível na velocidade da luz, sua build precisa ser focada em dano por tique (DoT) e múltiplos acertos simultâneos, já que o hitbox dos bosses grandes encosta em várias habilidades ao mesmo tempo.
-
-Bloodlines (Linhagens): * Shado: A escolha número um para PVE. A habilidade C-Spec e o modo dela criam estacas de sombra no chão. Como o hitbox dos bosses e das Bijus é gigante, eles recebem o dano de todas as estacas de uma vez, drenando a vida do boss em segundos.
-
-Apollo Sand: A terceira habilidade lança espinhos de areia de ferro que causam dano contínuo massivo se o boss estiver parado. Combinar Shado + Apollo Sand faz qualquer chefe sumir da tela.
-
-Elementos:
-
-Earth (Terra): Essencial pelas paredes que prendem os chefes e dão dano por esmagamento.
-
-Chaos ou Order: Elementos premium que possuem raios e feixes de energia contínuos de longo alcance, perfeitos para manter a distância enquanto o boss queima.
-
-Transformação: Use o modo da Biju Gen 2 (como a de 9 Caudas) no estágio 3 ou 4, ou a forma final de Linhagens de Boss para garantir regeneração constante de Chi e Health.
-
-📊 Distribuição Perfeita de Status (Stats)
-A forma como você distribui seus pontos muda completamente o seu desempenho. Aqui está como deixar os seus pontos dependendo do seu objetivo atual no jogo:
-
-Build Focada em Farm (PVE/Bosses)
-No farm, você precisa aguentar o dano dos bosses e ter Chi infinito para spammar seus jutsus repetidamente.
-
-Chi: Maximize o quanto antes (6000+ pontos). Você usará muitas habilidades de Linhagem seguidas.
-
-Ninjutsu: 5000+ pontos. O dano das suas principais habilidades de área (como a areia de ferro e as sombras) escala diretamente aqui.
-
-Health (Vida): 4000+ pontos. O suficiente para não morrer com um combo surpresa das Bijus.
-
-Taijutsu: Deixe o restante dos pontos aqui, usando apenas para mobilidade ou completar combos simples de cliques.
-
-Build Focada em Combate (PVP)
-No PVP, o foco muda para sobrevivência extrema e dano bruto para finalizar o oponente antes que ele use habilidades de fuga.
-
-Health (Vida): Maximize primeiro (6000+ pontos). No PVP, quem tem mais vida sobrevive aos combos de one-shot.
-
-Chi: 5000+ pontos. O suficiente para manter seus modos ativados e usar substituições (esquivas) sem ficar sem estamina.
-
-Ninjutsu / Taijutsu: Divida de forma equilibrada (4500+ em cada) dependendo do seu estilo de luta. Se você usa muitas armas e sub-jutsus físicos, foque em Taijutsu; se usa poderes elementares e ilusões, foque em Ninjutsu. em distribuir seus pontos equilibradamente no começo para aguentar o dano dos NPCs enquanto upa suas habilidades.</p>
+    <!-- TAB 2: BLOODLINES -->
+    <div id="tab-bloodlines" class="tab-content">
+        <div class="codex-grid" id="bloodlinesGrid"></div>
     </div>
 
-    <div id="meta" class="tab-content">
-        <h3>Melhores Poderes para PVP e Farm</h3>
-        <p><strong>Melhores Bloodlines (PVP):</strong> ⚔️ O Melhor para PVP vs. O Melhor para Farm
-O Rei do PVP: Tyn Akuma e Minakaze
-Por que são os melhores? Tyn Akuma e Minakaze dominam o topo do PVP. Eles oferecem uma passiva de escalonamento brutal, alta mobilidade com teletransportes e congelamento de tempo, o que permite iniciar combos sem dar chances de reação ou substituição para o oponente.
-
-Como obter: Através do sistema de giros (Spins) no menu principal.
-
-Chances de Drop: Extremamente baixas. A chance base de puxar uma linhagem S-tier como essas gira em torno de 1/250 a 1/300 por giro. </p>
-        <p><strong>Melhores Bloodlines (Farm/Bosses):</strong> O Rei do Farm: Shado e Apollo Sand
-Por que são os melhores? Como vimos na rota de nível, a combinação do C-Spec da Shado (as estacas pretas) com a terceira habilidade da Apollo Sand (os espinhos de ferro) derrete a vida de qualquer Boss gigante em questão de segundos. Eles cobrem uma área enorme e aplicam dano contínuo a cada segundo (DoT), multiplicando o dano com base no tamanho do hitbox do Boss.
-
-Como obter: Sistema de giros comuns (Spins).
-
-Chances de Drop: Sendo linhagens de raridade média/alta, as chances variam entre 1/60 e 1/90, tornando-as relativamente fáceis de conseguir para quem guarda spins de códigos. </p>
-        <p><strong>Melhores Elementos:</strong> 🔄 Os Mais Versáteis: O Equilíbrio PerfeitoSe você não quer ficar trocando de build toda hora e busca algo excelente tanto para amassar players no PVP quanto para solar Bosses, você precisa de linhagens versáteis:O Campeão da Versatilidade: Shindai Akuma (ou Shindai Rengoku)O grande segredo aqui são os seus clones. No Farm, os clones distraem os Bosses e aplicam uma quantidade massiva de dano por segundo utilizando ataques físicos (M2). No PVP, eles confundem o oponente, absorvem jutsus inimigos e servem de escudo, além de possuírem um contra-ataque (Counter) impecável.Elemento Mais Versátil: Chaos / OrderAmbos os elementos premium possuem feixes de laser contínuos que servem para prender oponentes em combos no PVP e, ao mesmo tempo, causam um dano contínuo fantástico em Bosses à distância segura. A chance de rotação deles nos spins é de 1/100.💥 O Maior Dano Brutal e os Mais Raros do JogoO Maior Dano do Jogo: Atualmente, a linhagem Indra Akuma e as variantes de Kamaki Akuma possuem os maiores multiplicadores de dano bruto em um único combo se todas as habilidades conectarem perfeitamente.Os Mais Raros e Difíceis (Spins): As linhagens limitadas de eventos e linhagens como Aizden exigem uma quantidade absurda de paciência. Aizden, por exemplo, requer que você colete máscaras específicas de Bosses ou junte uma quantidade colossal de RELL Coins (cerca de 150.000 a 200.000) na loja do jogo para comprar diretamente quando estiver disponível.🗺️ Bloodlines e Elementos de Drop de Boss (Sem usar Spins)Nem tudo no jogo depende de sorte nos giros! Algumas das melhores habilidades e sub-habilidades precisam ser tomadas à força derrotando grandes chefes nos mapas.⚠️ Requisitos para coletar: Para pegar esses itens, você precisa estar no servidor quando o Boss for derrotado e correr para clicar no pergaminho (Scroll) que cai no chão antes que ele desapareça. A chance de drop varia entre 10% e 15%.Aqui está a lista dos principais alvos para caça:Boss / ChefeMapa de SpawnLocalização ExataO que ele dropa?Shindai AkumaShindai ValleyNa clareira atrás das grandes montanhas de pedra.Companheiro Shindai e jutsus de clones específicos.Deva RenDawn HideoutExatamente no centro do mapa, na arena principal de Dawn.Deva Rinnegan (Linhagem visual potente para controle de mapa).Forged AkumaObeliskNa área desértica aberta, afastada da vila principal.Modos Forged e armas de longo alcance.Gen 3 Beast BossesGreat Narumaki / Forest of EmbersNas grandes arenas de selamento espalhadas pelas bordas do mapa.Armaduras Espirituais e as formas de Biju da Geração 3. </p>
+    <!-- TAB 3: ELEMENTOS -->
+    <div id="tab-elements" class="tab-content">
+        <div class="codex-grid" id="elementsGrid"></div>
     </div>
 
-    <div id="sub" class="tab-content">
-        <h3>Sub-Transformações (Bijus e Invocações)</h3>
-        <p>As Sub-Habilidades são cruciais para aumentar seus atributos máximos:</p>
-        <ul>
-            <li><strong>Bijus (Tailed Beasts):</strong> Nascem em horários específicos em mapas determinados. Você precisa derrotar o boss da Biju quando o scroll dropar para capturá-la.</li>
-            <li><strong>Invocações (Boss Companions/Invokes):</strong> Obtidas derrotando chefes específicos nos mapas do jogo através de drops de scrolls de pergaminho.</li>
-        </ul>
+    <!-- TAB 4: PROGRESSÃO & STATS -->
+    <div id="tab-progression" class="tab-content">
+        <div class="info-panel">
+            <h3>Rota Rápida de Níveis (1 - 1000)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Faixa de Nível</th>
+                        <th>Localização</th>
+                        <th>Estratégia Recomendada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Lv 1 - 50</strong></td>
+                        <td>Vila Ember</td>
+                        <td>Bata nos troncos de treino (Logs) com ataques físicos e Taijutsu.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lv 50 - 400</strong></td>
+                        <td>Ember / Obelisk</td>
+                        <td>Faça scrolls verdes até destravar os chefes de vila (Scrolls Vermelhos).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lv 400 - 1000</strong></td>
+                        <td>Shindai Valley / Dawn Hideout</td>
+                        <td>Aplique o "Boss Hop" alternando servidores para derrotar Deva Ren e Shindai em sequência.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="info-panel">
+            <h3>Distribuição Recomendada de Atributos (Stats)</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 10px;"><strong>Build PVE (Farm de Bosses):</strong></p>
+            <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 15px;">Foque em <strong>Chi (6000+)</strong> e <strong>Ninjutsu (5000+)</strong>. Essa combinação garante estamina infinita para spammar jutsus de dano contínuo (DoT) como Shado e Apollo Sand.</p>
+            
+            <p style="color: var(--text-secondary); margin-bottom: 10px;"><strong>Build PVP (Combate):</strong></p>
+            <p style="color: var(--text-muted); line-height: 1.6;">Priorize <strong>Health (6000+)</strong> e divida o restante equilibradamente entre Ninjutsu e Taijutsu para resistir a combos de eliminação única (one-shot).</p>
+        </div>
+
+        <div class="info-panel">
+            <h3>Como Funciona o Sistema de Rank-Up</h3>
+            <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 10px;">
+                Ao atingir o <strong>Nível 1000</strong>, você pode dar Rank-Up no menu principal. Seu nível volta ao 1, mas você ganha bônus permanentes de atributos e giros extras (Spins).
+            </p>
+            <p style="color: var(--text-muted);">A ordem dos Ranks é: F0 &rarr; D3 &rarr; C3 &rarr; B3 &rarr; A3 &rarr; S3 &rarr; Z3 &rarr; MAX.</p>
+        </div>
     </div>
 
-    <div id="rank" class="tab-content">
-        <h3>Como Fazer Rank Up</h3>
-        <p>Para subir seu Rank, você deve atingir obrigatoriamente o <strong>Nível 1000</strong>. Assim que alcançar, vá até o menu principal do jogo ou digite o comando de rank up na aba de customização. Seu nível voltará ao 1, mas você ganhará mais stats base por nível e spins extras!</p>
+    <!-- TAB 5: BOSSES & DROPS -->
+    <div id="tab-bosses" class="tab-content">
+        <div class="info-panel">
+            <h3>Tabela de Drop dos Principais Chefes</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Chefe / Biju</th>
+                        <th>Local de Spawn</th>
+                        <th>Drops de Destaque</th>
+                        <th>Chance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Deva Ren</strong></td>
+                        <td>Dawn Hideout (Centro)</td>
+                        <td>Deva Rinnegan / Experiência Massiva</td>
+                        <td>10%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Shindai Akuma</strong></td>
+                        <td>Shindai Valley</td>
+                        <td>Companion Shindai / Jutsu de Clones</td>
+                        <td>10%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Forged Akuma</strong></td>
+                        <td>Obelisk Desert</td>
+                        <td>Modo Forged e Armas de Longo Alcance</td>
+                        <td>15%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Korashi (9 Caudas Gen 2)</strong></td>
+                        <td>Ember Lake</td>
+                        <td>Espírito Gen 2 / Rugido em Área</td>
+                        <td>10%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gen 3 Tailed Beasts</strong></td>
+                        <td>Great Narumaki / Forest of Embers</td>
+                        <td>Forma Espiritual Gen 3 e Armaduras</td>
+                        <td>10% - 15%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- TAB 6: CÓDIGOS -->
+    <div id="tab-codes" class="tab-content">
+        <div class="info-panel">
+            <h3>Códigos de RELL Coins & Spins Ativos</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Clique no botão para copiar o código e cole no menu de customização do jogo:</p>
+
+            <div class="code-box">
+                <div>
+                    <strong style="color: var(--accent-cyan);">SHINOBI_WIKI_2026!</strong>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">Recompensa: 50.000 RELL Coins + 100 Spins</p>
+                </div>
+                <button class="btn-copy" onclick="copyCode('SHINOBI_WIKI_2026!')">Copiar</button>
+            </div>
+
+            <div class="code-box">
+                <div>
+                    <strong style="color: var(--accent-cyan);">LUIS_FELIPE_SHINOBI!</strong>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">Recompensa: 200 Spins Grátis</p>
+                </div>
+                <button class="btn-copy" onclick="copyCode('LUIS_FELIPE_SHINOBI!')">Copiar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL INTERATIVO -->
+<div class="modal-overlay" id="detailModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div id="modalBody"></div>
     </div>
 </div>
 
 <script>
-    // Função em JavaScript para alternar as abas
-    function openTab(evt, tabName) {
-        // Esconde todos os conteúdos das abas
-        var i, tabcontent, tabbuttons;
-        tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
+    // Lista Completa de Bloodlines
+    const rawBloodlines = [
+        "Forged Sengoku", "Steam", "Jokei", "Crystal", "Atomic", "Explosion", "Gold Sand", 
+        "Ice", "Apollo Sand", "Lava", "Mud", "Sand", "Scorch", "Akuma", "Storm", "Nature", 
+        "Dokei", "Kokotsu", "Senko", "Kaijin", "Minakami", "Azarashi", "Shado", "Bankai Akuma", 
+        "Kerada", "Rykan Shizen", "Arahaki Jokei", "Shiver Akuma", "Ashen Storm", "Dio Senko", 
+        "Raion Akuma", "Satori Akuma", "Sengoku", "Tengoku", "Rengoku", "Wanziame", "Nectar", 
+        "Shizen", "Okami", "Glacier", "Black Shock", "Clay", "Eternal", "Paper", "Bolt", 
+        "Bubble", "Sound", "Azim Senko", "Koncho", "Saberu", "Kenichi", "Dangan", "Riser Akuma", 
+        "Renshiki", "Shindai Akuma", "Seishin", "Frost", "Ink", "Hair", "Inferno", "Vine", 
+        "Raion Rengoku", "Mecha Spirit", "Odin Saberu", "Light Jokei", "Dark Jokei", "Pika Senko", 
+        "Cobra", "Giovanni Shizen", "Kabu Cobra", "Jotaro Shizen", "Emerald", "Deva Rengoku", 
+        "Deva Sengoku", "Typhoon", "Order", "Ghost Korashi", "Inferno Korashi", "Narumaki", 
+        "Variety Mud", "Xeno Dokei", "Yang Narumaki", "Kamaki"
+    ];
 
-        // Remove a classe 'active' de todos os botões
-        tabbuttons = document.getElementsByClassName("tab-button");
-        for (i = 0; i < tabbuttons.length; i++) {
-            tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
-        }
+    // Lista Completa de Elementos
+    const rawElements = ["Fire", "Water", "Earth", "Wind", "Lightning", "Yin", "Yang", "Chaos", "Order", "Pyromania"];
 
-        // Mostra a aba atual e adiciona a classe 'active' ao botão clicado
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
+    const db = {};
+
+    function buildDatabase() {
+        rawBloodlines.forEach(name => {
+            const id = name.toLowerCase().replace(/\s+/g, '-');
+            let category = "badge-pvp";
+            let tag = "PVP / Combate";
+            
+            if (["Shado", "Apollo Sand", "Xeno Dokei", "Renshiki", "Gold Sand"].includes(name)) {
+                category = "badge-pve";
+                tag = "PVE / Bosses";
+            } else if (name.includes("Akuma") || name.includes("Rengoku") || name.includes("Sengoku") || name.includes("Narumaki")) {
+                category = "badge-meta";
+                tag = "Meta Top Tier";
+            }
+
+            db[id] = {
+                title: `${name} (Bloodline)`,
+                badge: tag,
+                badgeClass: category,
+                rarity: "Sorteio em Spins (1/80 até 1/300)",
+                desc: `Poderosa linhagem ${name}. Concede habilidades exclusivas e transformações de alto rendimento.`,
+                moveset: [
+                    `1ª Habilidade: Ataque primário com forte impacto em área usando ${name}.`,
+                    `2ª Habilidade: Jutsu de controle de grupo ou imobilização prolongada.`,
+                    `3ª Habilidade / C-Spec: Modo avançado com multiplicadores de dano por segundo.`
+                ],
+                strategy: `Combine o controle de grupo do elemento base com o dano bruto da ${name} para finalizar combos sem dar margem para esquiva.`
+            };
+        });
+
+        rawElements.forEach(name => {
+            const id = name.toLowerCase().replace(/\s+/g, '-');
+            db[id] = {
+                title: `${name} (Elemento)`,
+                badge: "Elemento Base",
+                badgeClass: "badge-elem",
+                rarity: "Rotação Comum / Rara",
+                desc: `Elemento fundamental (${name}). Indispensável para equilibrar combos e aplicar controle de campo.`,
+                moveset: [
+                    `Projétil Elemental: Disparo direto focado em alcance e precisão.`,
+                    `Explosão Elemental: Quebra de guarda (Guard Break) em área.`,
+                    `Jutsu Supremo: Raio contínuo com alto dano de impacto.`
+                ],
+                strategy: `Use ${name} para quebrar a defesa adversária antes de iniciar sua sequência de linhagem.`
+            };
+        });
     }
+
+    function renderCards() {
+        const bloodGrid = document.getElementById('bloodlinesGrid');
+        const elemGrid = document.getElementById('elementsGrid');
+
+        document.getElementById('bloodCount').innerText = rawBloodlines.length;
+        document.getElementById('elemCount').innerText = rawElements.length;
+
+        rawBloodlines.forEach(name => {
+            const id = name.toLowerCase().replace(/\s+/g, '-');
+            const data = db[id];
+            bloodGrid.innerHTML += `
+                <div class="codex-card" onclick="openModal('${id}')">
+                    <div>
+                        <div class="card-header">
+                            <h3 class="card-title">${name}</h3>
+                            <span class="badge ${data.badgeClass}">${data.badge}</span>
+                        </div>
+                        <p class="card-desc">${data.desc}</p>
+                    </div>
+                    <div class="card-footer">Ver Moveset & Estratégia &rarr;</div>
+                </div>
+            `;
+        });
+
+        rawElements.forEach(name => {
+            const id = name.toLowerCase().replace(/\s+/g, '-');
+            const data = db[id];
+            elemGrid.innerHTML += `
+                <div class="codex-card" onclick="openModal('${id}')">
+                    <div>
+                        <div class="card-header">
+                            <h3 class="card-title">${name}</h3>
+                            <span class="badge ${data.badgeClass}">${data.badge}</span>
+                        </div>
+                        <p class="card-desc">${data.desc}</p>
+                    </div>
+                    <div class="card-footer">Ver Moveset & Estratégia &rarr;</div>
+                </div>
+            `;
+        });
+    }
+
+    function switchTab(event, tabId) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    function switchTabByName(tabId) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => {
+            if(btn.getAttribute('onclick').includes(tabId)) {
+                btn.classList.add('active');
+            }
+        });
+    }
+
+    function openModal(id) {
+        const data = db[id];
+        if (!data) return;
+
+        document.getElementById('modalBody').innerHTML = `
+            <span class="badge ${data.badgeClass}">${data.badge}</span>
+            <h3 style="font-family: 'Space Grotesk'; font-size: 1.8rem; margin: 10px 0;">${data.title}</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Raridade: ${data.rarity}</p>
+            <p style="color: var(--text-secondary); line-height: 1.5;">${data.desc}</p>
+            
+            <div class="modal-section">
+                <h4>Habilidades & Moveset Detalhado</h4>
+                <ul>
+                    ${data.moveset.map(m => `<li>${m}</li>`).join('')}
+                </ul>
+            </div>
+
+            <div class="modal-section">
+                <h4>Estratégia Recomendada</h4>
+                <p style="color: var(--text-secondary); font-size: 0.93rem; line-height: 1.5;">${data.strategy}</p>
+            </div>
+        `;
+
+        document.getElementById('detailModal').classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('detailModal').classList.remove('active');
+    }
+
+    function filterContent() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        
+        // Filtra cards do codex
+        document.querySelectorAll('.codex-card').forEach(card => {
+            const text = card.innerText.toLowerCase();
+            card.style.display = text.includes(query) ? 'flex' : 'none';
+        });
+
+        // Filtra linhas de tabelas
+        document.querySelectorAll('.data-table tbody tr').forEach(row => {
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(query) ? '' : 'none';
+        });
+    }
+
+    function copyCode(code) {
+        navigator.clipboard.writeText(code);
+        alert("Código " + code + " copiado com sucesso!");
+    }
+
+    window.onclick = function(e) {
+        if (e.target === document.getElementById('detailModal')) closeModal();
+    }
+
+    // Inicialização
+    buildDatabase();
+    renderCards();
 </script>
 
 </body>
